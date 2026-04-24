@@ -21,12 +21,12 @@ abstract class AppDatabase : RoomDatabase() {
         /*
          * Returns the database instance. Initialises it if it doesn't exist.
          */
-        fun getDatabase(context: Context): AppDatabase {
+        fun getInstance(context: Context): AppDatabase {  // CHANGED: method name to getInstance
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
-                    "unipro_budget_db"
+                    "cashflow_db"  // CHANGED: database name
                 ).build()
                 INSTANCE = instance
                 instance

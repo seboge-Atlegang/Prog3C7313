@@ -10,37 +10,55 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface AppDao {
 
-    // Authentication
-    @Query("SELECT * FROM users WHERE username = :user AND password = :pass LIMIT 1")
-    suspend fun login(user: String, pass: String): User?
+    // ============ AUTHENTICATION ============
+
+    @Query("SELECT * FROM users WHERE username = :username AND password = :password LIMIT 1")
+    suspend fun login(username: String, password: String): User?
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun register(user: User)
+    suspend fun insertUser(user: User): Long
 
-    // Expenses
+    @Query("SELECT * FROM users WHERE username = :username")
+    suspend fun getUserByUsername(username: String): User?
+
+    @Query("SELECT * FROM users WHERE email = :email")
+    suspend fun getUserByEmail(email: String): User?
+
+    // ============ EXPENSES ============
+
     @Insert
     suspend fun insertExpense(expense: Expense)
 
-    @Query("SELECT * FROM expenses WHERE date BETWEEN :start AND :end")
-    fun getExpensesForPeriod(start: String, end: String): Flow<List<Expense>>
+    @Query("SELECT * FROM expenses WHERE date BETWEEN :startDate AND :endDate")
+    fun getExpensesForPeriod(startDate: String, endDate: String): Flow<List<Expense>>
 
-    // Categories
+    @Query("SELECT * FROM expenses ORDER BY date DESC")
+    fun getAllExpenses(): Flow<List<Expense>>
+
+    // ============ CATEGORIES ============
+
     @Insert
     suspend fun insertCategory(category: Category)
 
     @Query("SELECT * FROM categories")
     fun getAllCategories(): Flow<List<Category>>
 
-    /*
-     * Calculate totals per category for a specific range.
-     * This query sorts the amount field that is grouped by the category ID.
-     */
-    @Query("SELECT categoryId, SUM(amount) as total FROM expenses WHERE date BETWEEN :start AND :end GROUP BY categoryId")
-    fun getCategoryTotals(start: String, end: String): Flow<List<CategorySummary>>
+    // ============ CATEGORY TOTALS ============
 
-    // Goals
+    @Query("SELECT categoryId, SUM(amount) as total FROM expenses WHERE date BETWEEN :startDate AND :endDate GROUP BY categoryId")
+    fun getCategoryTotals(startDate: String, endDate: String): Flow<List<CategorySummary>>
+
+    // ============ MONTHLY GOALS ============
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateGoal(goal: MonthlyGoal)
+
+    // FIXED: Changed 'month' to 'monthYear' to match MonthlyGoal entity
+    @Query("SELECT * FROM monthly_goals WHERE monthYear = :monthValue")
+    suspend fun getMonthlyGoal(monthValue: String): MonthlyGoal?
+
+    @Query("SELECT * FROM monthly_goals")
+    fun getAllMonthlyGoals(): Flow<List<MonthlyGoal>>
 }
 
 /*
