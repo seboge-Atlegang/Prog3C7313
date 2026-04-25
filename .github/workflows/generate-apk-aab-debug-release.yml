@@ -1,43 +1,44 @@
 name: UniProBudget CI
 
 on:
- push:
-   branches: [main]
+  push:
+    branches: [main]
 
- workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
- build-and-test:
-   runs-on: ubuntu-latest
+  build-and-test:
 
-   defaults:
-     run:
-       working-directory: UniProBudget
+    runs-on: ubuntu-latest
 
-   steps:
-   - uses: actions/checkout@v4
+    defaults:
+      run:
+        working-directory: UniProBudget
 
-   - name: Setup Java
-     uses: actions/setup-java@v4
-     with:
-       distribution: zulu
-       java-version: 17
-       cache: gradle
+    steps:
+      - uses: actions/checkout@v4
 
-   - name: Make gradlew executable
-     run: chmod +x gradlew
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: 17
+          cache: gradle
 
-   - name: Run Unit Tests
-     run: ./gradlew test
+      - name: Make gradlew executable
+        run: chmod +x gradlew
 
-   - name: Run Lint
-     run: ./gradlew lint
+      - name: Run Automated Tests
+        run: ./gradlew test
 
-   - name: Build Debug APK
-     run: ./gradlew assembleDebug
+      - name: Run Lint
+        run: ./gradlew lint
 
-   - name: Upload APK
-     uses: actions/upload-artifact@v4
-     with:
-       name: Debug-APK
-       path: UniProBudget/app/build/outputs/apk/debug/
+      - name: Build APK
+        run: ./gradlew assembleDebug
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Debug-APK
+          path: UniProBudget/app/build/outputs/apk/debug/
