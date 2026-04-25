@@ -54,7 +54,7 @@ class DatabaseTest {
         dao.insertExpense(testExpense)
 
         // Note: In a full test, we would query and assert.
-        // Successful execution confirms the DB schema is valid.
+        // Successful execution confirms the DB schema is valid. 
         assert(true)
     }
 }
