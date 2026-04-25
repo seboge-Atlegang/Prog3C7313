@@ -8,5 +8,11 @@ runs database instrumentation tests
 builds APK
 DatabaseTest.kt validates Room database insert and retrieval logic.
 This ensures the application runs successfully outside the local development machine.
+Automation implemented using GitHub Actions includes:
+- Automatic test execution
+- Automated lint/code checks
+- Automatic APK build verification
+- Artifact generation
+- Continuous Integration on every push
 
 That directly answers the requirement.
