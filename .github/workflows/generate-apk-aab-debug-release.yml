@@ -1,18 +1,7 @@
-name: Prog3C7313 Automated Testing and APK Build
-
-env:
-  main_project_module: app
-  playstore_name: Prog3C7313
-  build_output_path: buildActionResult
+name: Android CI Testing
 
 on:
   push:
-    branches:
-      - main
-      - master
-      - develop
-
-  pull_request:
     branches:
       - main
 
@@ -23,110 +12,31 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: UniProBudget
+
     steps:
-      # Checkout repository
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      # Date variable
-      - name: Set Date
-        run: echo "date_today=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
-
-      # Repo name variable
-      - name: Set Repository Name
-        run: echo "repository_name=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $GITHUB_ENV
-
-      # Java setup
-      - name: Set Up JDK 17
+      - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: zulu
           java-version: 17
           cache: gradle
 
-      # Grant permission to gradle wrapper
       - name: Make gradlew executable
-        run: chmod +x ./gradlew
+        run: chmod +x gradlew
 
-      #################################################
-      # AUTOMATED TESTING (CI)
-      #################################################
-
-      - name: Run Unit Tests
+      - name: Run Tests
         run: ./gradlew test
-
-      - name: Run Lint Checks
-        run: ./gradlew lint
-
-      - name: Build Project
-        run: ./gradlew build
-
-      #################################################
-      # APK / AAB GENERATION
-      #################################################
 
       - name: Build Debug APK
         run: ./gradlew assembleDebug
 
-      - name: Build Release APK
-        run: ./gradlew assembleRelease
-
-      - name: Build Release Bundle AAB
-        run: ./gradlew app:bundleRelease
-
-      #################################################
-      # UPLOAD ARTIFACTS
-      #################################################
-
-      - name: Upload Debug APK
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: Debug-APK-${{ env.date_today }}
-          path: app/build/outputs/apk/debug/
-
-      - name: Upload Release APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: Release-APK-${{ env.date_today }}
-          path: app/build/outputs/apk/release/
-
-      - name: Upload AAB
-        uses: actions/upload-artifact@v4
-        with:
-          name: Release-AAB-${{ env.date_today }}
-          path: app/build/outputs/bundle/release/
-
-      #################################################
-      # SAVE BUILD OUTPUTS TO REPOSITORY
-      #################################################
-
-      - name: Clean output folder
-        run: rm -rf ${{ env.build_output_path }}
-
-      - name: Create output folder
-        run: mkdir -p ${{ env.build_output_path }}
-
-      - name: Copy Debug APK
-        run: |
-          cp -r app/build/outputs/apk/debug/* ${{ env.build_output_path }}/ || echo "No debug APK found"
-
-      - name: Copy Release APK
-        run: |
-          cp -r app/build/outputs/apk/release/* ${{ env.build_output_path }}/ || echo "No release APK found"
-
-      - name: Copy Release AAB
-        run: |
-          cp -r app/build/outputs/bundle/release/* ${{ env.build_output_path }}/ || echo "No AAB found"
-
-      - name: List Output Files
-        run: ls -la ${{ env.build_output_path }}
-
-      - name: Commit Build Outputs
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add ${{ env.build_output_path }}/ -f
-          git diff --cached --quiet && echo "No changes" || (
-          git commit -m "CI build outputs [skip ci]"
-          git push
-          )
+          name: Debug-APK
+          path: UniProBudget/app/build/outputs/apk/debug/
