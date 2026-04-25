@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<!-- res/values/strings.xml -->
 <resources>
     <string name="app_name">CashFlow</string>
+
+    <!-- Auth Screens -->
     <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="username">Username</string>
@@ -15,4 +15,100 @@
     <string name="dont_have_account">Don\'t have an account?</string>
     <string name="login_success">Login Successful</string>
     <string name="register_success">Registration Successful</string>
+
+    <!-- Main Menu -->
+    <string name="main_title">CashFlow</string>
+    <string name="btn_add_expense">Add Expense</string>
+    <string name="btn_categories_goals">Categories &amp; Goals</string>
+    <string name="btn_reports">Reports &amp; Dashboard</string>
+
+    <!-- Expense Entry -->
+    <string name="add_expense_title">Add New Expense</string>
+    <string name="amount">Amount (R)</string>
+    <string name="date">Date (YYYY-MM-DD)</string>
+    <string name="start_time">Start Time (HH:MM)</string>
+    <string name="end_time">End Time (HH:MM)</string>
+    <string name="description">Description</string>
+    <string name="select_category">Select Category</string>
+    <string name="save_expense">Save Expense</string>
+    <string name="add_photo">Add Receipt Photo</string>
+    <string name="photo_attached">✓ Receipt photo attached</string>
+    <string name="photo_failed">✗ Photo capture failed</string>
+    <string name="photo_removed">No photo attached</string>
+    <string name="photo_from_gallery">✓ Receipt photo attached from gallery</string>
+
+    <!-- Photo Dialog -->
+    <string name="add_receipt_photo">Add Receipt Photo</string>
+    <string name="take_photo">📷 Take Photo with Camera</string>
+    <string name="choose_gallery">🖼 Choose from Gallery</string>
+    <string name="remove_photo">🗑 Remove Photo</string>
+
+    <!-- Categories -->
+    <string name="categories_title">Categories &amp; Goals</string>
+    <string name="add_new_category">Add New Category</string>
+    <string name="category_name">Category Name</string>
+    <string name="add_category">Add</string>
+    <string name="your_categories">Your Categories</string>
+    <string name="monthly_goals">Monthly Goals</string>
+    <string name="select_month">Select Month (YYYY-MM)</string>
+    <string name="min_goal">Minimum Goal (R)</string>
+    <string name="max_goal">Maximum Goal (R)</string>
+    <string name="save_goal">Save Goal</string>
+    <string name="goal_saved_for">Goal saved for</string>
+    <string name="enter_month">Enter month (YYYY-MM)</string>
+    <string name="month_format_hint">Month must be format: YYYY-MM (e.g., 2026-04)</string>
+    <string name="enter_min_goal">Enter minimum goal</string>
+    <string name="enter_max_goal">Enter maximum goal</string>
+    <string name="min_goal_prefix">Min: </string>
+    <string name="max_goal_prefix">Max: </string>
+    <string name="remaining_prefix">Remaining: </string>
+    <string name="category_already_exists">Category already exists!</string>
+    <string name="category_added_success">Category added!</string>
+    <string name="category_deleted">Category deleted!</string>
+    <string name="delete_category_title">Delete Category</string>
+    <string name="delete_category_message">Are you sure you want to delete \'%s\'?\n\nNote: Expenses using this category will be orphaned.</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- Reports -->
+    <string name="reports_title">Reports &amp; Dashboard</string>
+    <string name="select_month_report">Select Month (YYYY-MM)</string>
+    <string name="load_report">Load Report</string>
+    <string name="total_spent">Total Spent</string>
+    <string name="budget_progress">Budget Progress</string>
+    <string name="min_goal_label">Min: </string>
+    <string name="max_goal_label">Max: </string>
+    <string name="remaining_label">Remaining: </string>
+    <string name="spending_by_category">Spending by Category</string>
+    <string name="no_data">No expenses found for this month</string>
+    <string name="error_loading_budget">Error loading budget</string>
+    <string name="error_loading_data">Error loading data</string>
+
+    <!-- Default Values -->
+    <string name="default_month">2026-04</string>
+    <string name="default_start_date">2026-04-25</string>
+    <string name="default_end_date">2026-04-30</string>
+    <string name="default_time_hour">14:30</string>
+    <string name="default_end_time_hour">15:30</string>
+
+    <!-- Messages -->
+    <string name="expense_saved">✓ Expense saved successfully!</string>
+    <string name="expense_saved_with_photo">✓ Expense saved with receipt photo!</string>
+    <string name="category_added_success_msg">Category added successfully!</string>
+    <string name="goal_saved_msg">Goal saved successfully!</string>
+    <string name="fill_all_fields">Please fill all fields</string>
+    <string name="invalid_amount">Please enter a valid amount</string>
+    <string name="select_category_error">Please select a category</string>
+    <string name="please_select_date">Please select a date</string>
+    <string name="please_select_start_time">Please select start time</string>
+    <string name="please_select_end_time">Please select end time</string>
+    <string name="please_enter_description">Please enter a description</string>
+    <string name="add_categories_first">Please add categories first in Categories &amp; Goals screen</string>
+    <string name="error_loading_categories">Error loading categories</string>
+    <string name="failed_to_save">Failed to save</string>
+    <string name="failed_to_add_category">Failed to add category</string>
+    <string name="failed_to_save_goal">Failed to save goal</string>
+    <string name="no_categories_available">No categories available</string>
+    <string name="date_format_error">Date must be YYYY-MM-DD (e.g., 2026-04-25)</string>
+    <string name="month_format_error">Month must be YYYY-MM format (e.g., 2026-04)</string>
 </resources>

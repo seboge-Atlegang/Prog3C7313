@@ -43,17 +43,40 @@ interface AppDao {
     @Query("SELECT * FROM categories")
     fun getAllCategories(): Flow<List<Category>>
 
-    // ============ CATEGORY TOTALS ============
+    @Query("DELETE FROM categories WHERE id = :categoryId")
+    suspend fun deleteCategory(categoryId: Int)
 
-    @Query("SELECT categoryId, SUM(amount) as total FROM expenses WHERE date BETWEEN :startDate AND :endDate GROUP BY categoryId")
+    /**
+     * ADVANCED REPORT: Calculates the sum of expenses grouped by category.
+     * JOINs the categories table to get the name instead of just an ID.
+     */
+    @Query("""
+        SELECT c.name as categoryName, SUM(e.amount) as totalAmount 
+        FROM expenses e 
+        JOIN categories c ON e.categoryId = c.id 
+        WHERE e.date BETWEEN :startDate AND :endDate 
+        GROUP BY c.name
+    """)
     fun getCategoryTotals(startDate: String, endDate: String): Flow<List<CategorySummary>>
+
+
+    /**
+     * DASHBOARD REPORT: Gets total spending for a specific month pattern (e.g., "2026-04%")
+     */
+    @Query("SELECT SUM(amount) FROM expenses WHERE date LIKE :monthPattern")
+    suspend fun getTotalSpentForMonth(monthPattern: String): Double?
+
+    /**
+     * GOAL LOOKUP: Retrieves the set budget for a specific month.
+     */
+    @Query("SELECT * FROM monthly_goals WHERE monthYear = :monthYear LIMIT 1")
+    suspend fun getGoalForMonth(monthYear: String): MonthlyGoal?
 
     // ============ MONTHLY GOALS ============
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateGoal(goal: MonthlyGoal)
 
-    // FIXED: Changed 'month' to 'monthYear' to match MonthlyGoal entity
     @Query("SELECT * FROM monthly_goals WHERE monthYear = :monthValue")
     suspend fun getMonthlyGoal(monthValue: String): MonthlyGoal?
 
@@ -64,4 +87,4 @@ interface AppDao {
 /*
  * Helper class to hold the result of the Category Totals query.
  */
-data class CategorySummary(val categoryId: Int, val total: Double)
+data class OriginalCategorySummary(val categoryId: Int, val total: Double)
