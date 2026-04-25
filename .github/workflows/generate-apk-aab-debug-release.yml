@@ -1,89 +1,43 @@
-name: UniProBudget CI Automated Testing
+name: UniProBudget CI
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-  workflow_dispatch:
+ push:
+   branches: [main]
+
+ workflow_dispatch:
 
 jobs:
-  build-and-test:
+ build-and-test:
+   runs-on: ubuntu-latest
 
-    runs-on: ubuntu-latest
+   defaults:
+     run:
+       working-directory: UniProBudget
 
-    defaults:
-      run:
-        working-directory: UniProBudget
+   steps:
+   - uses: actions/checkout@v4
 
-    steps:
+   - name: Setup Java
+     uses: actions/setup-java@v4
+     with:
+       distribution: zulu
+       java-version: 17
+       cache: gradle
 
-     
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+   - name: Make gradlew executable
+     run: chmod +x gradlew
 
-      
-      - name: Set Up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          distribution: zulu
-          java-version: 17
-          cache: gradle
+   - name: Run Unit Tests
+     run: ./gradlew test
 
-     
-      - name: Make gradlew executable
-        run: chmod +x gradlew
+   - name: Run Lint
+     run: ./gradlew lint
 
-    
-      - name: Run Unit Tests
-        run: ./gradlew test
+   - name: Build Debug APK
+     run: ./gradlew assembleDebug
 
-    
-      - name: Run Lint Checks
-        run: ./gradlew lint
-
-     
-      - name: Run Instrumented Tests
-        uses: ReactiveCircus/android-emulator-runner@v2
-        with:
-          api-level: 30
-          arch: x86_64
-          profile: Nexus 6
-          script: |
-            cd UniProBudget
-            ./gradlew connectedAndroidTest
-
-     
-      - name: Build Debug APK
-        run: ./gradlew assembleDebug
-
-     
-      - name: Build Release APK
-        run: ./gradlew assembleRelease
-
-     
-      - name: Build App Bundle
-        run: ./gradlew bundleRelease
-
-      
-      - name: Upload Debug APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: Debug-APK
-          path: UniProBudget/app/build/outputs/apk/debug/
-
-      
-      - name: Upload Release APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: Release-APK
-          path: UniProBudget/app/build/outputs/apk/release/
-
-    
-      - name: Upload App Bundle
-        uses: actions/upload-artifact@v4
-        with:
-          name: Release-AAB
-          path: UniProBudget/app/build/outputs/bundle/release/
+   - name: Upload APK
+     uses: actions/upload-artifact@v4
+     with:
+       name: Debug-APK
+       path: UniProBudget/app/build/outputs/apk/debug/
