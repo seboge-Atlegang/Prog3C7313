@@ -1,9 +1,8 @@
-name: Android CI Testing
+name: UniProBudget CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
   workflow_dispatch:
 
@@ -29,13 +28,16 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x gradlew
 
-      - name: Run Tests
+      - name: Run Automated Tests
         run: ./gradlew test
 
-      - name: Build Debug APK
+      - name: Run Lint
+        run: ./gradlew lint
+
+      - name: Build APK
         run: ./gradlew assembleDebug
 
-      - name: Upload APK
+      - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
           name: Debug-APK
