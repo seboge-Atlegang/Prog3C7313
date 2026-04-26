@@ -62,6 +62,13 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
+        <!-- Expense List Activity -->
+        <activity
+            android:name=".ExpensesListActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"/>
+
+
         <!-- Categories & Goals Activity -->
         <activity
             android:name=".CategoriesGoalsActivity"

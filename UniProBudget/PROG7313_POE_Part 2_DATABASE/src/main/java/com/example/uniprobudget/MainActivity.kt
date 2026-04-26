@@ -10,8 +10,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        findViewById<Button>(R.id.btnAddExpense).setOnClickListener {
-            startActivity(Intent(this, ExpenseTrackingActivity::class.java))
+        findViewById<Button>(R.id.btnExpense).setOnClickListener {
+            startActivity(Intent(this, ExpensesListActivity::class.java))
         }
 
         findViewById<Button>(R.id.btnCategoriesGoals).setOnClickListener {

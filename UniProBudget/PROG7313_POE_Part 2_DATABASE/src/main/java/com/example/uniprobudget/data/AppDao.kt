@@ -35,6 +35,16 @@ interface AppDao {
     @Query("SELECT * FROM expenses ORDER BY date DESC")
     fun getAllExpenses(): Flow<List<Expense>>
 
+    @Query("""
+    SELECT * FROM expenses
+    WHERE date BETWEEN :startDate AND :endDate
+    ORDER BY date DESC
+    """)
+    fun getExpensesByDateRange(
+        startDate: String,
+        endDate: String
+    ): Flow<List<Expense>>
+
     // ============ CATEGORIES ============
 
     @Insert
