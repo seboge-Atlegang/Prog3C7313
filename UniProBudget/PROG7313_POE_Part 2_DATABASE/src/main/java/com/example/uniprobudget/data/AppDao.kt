@@ -29,6 +29,9 @@ interface AppDao {
     @Insert
     suspend fun insertExpense(expense: Expense)
 
+    @Delete
+    suspend fun deleteExpense(expense: Expense)
+
     @Query("SELECT * FROM expenses WHERE date BETWEEN :startDate AND :endDate")
     fun getExpensesForPeriod(startDate: String, endDate: String): Flow<List<Expense>>
 

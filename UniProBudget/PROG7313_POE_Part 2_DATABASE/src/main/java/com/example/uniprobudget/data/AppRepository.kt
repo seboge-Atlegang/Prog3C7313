@@ -15,6 +15,8 @@ class AppRepository(private val appDao: AppDao) {
 
     // Expense Management
     suspend fun addExpense(expense: Expense) = appDao.insertExpense(expense)
+    suspend fun deleteExpense(expense: Expense) =
+        appDao.deleteExpense(expense)
     fun getExpensesForPeriod(start: String, end: String): Flow<List<Expense>> = appDao.getExpensesForPeriod(start, end)
     fun getAllExpenses(): Flow<List<Expense>> = appDao.getAllExpenses()
 
