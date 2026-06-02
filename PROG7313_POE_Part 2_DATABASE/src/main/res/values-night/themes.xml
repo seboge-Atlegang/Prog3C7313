@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.UniProBudget" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color (keeps blue visible in dark mode) -->
+        <item name="colorPrimary">@color/primary_blue</item>
+        <item name="colorPrimaryVariant">@color/primary_dark_blue</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <!-- Secondary brand color -->
+        <item name="colorSecondary">@color/white</item>
+        <item name="colorSecondaryVariant">@color/gray_light</item>
+        <item name="colorOnSecondary">@color/black</item>
+
+        <!-- Status bar color -->
+        <item name="android:statusBarColor">@color/black</item>
+
+        <!-- Background -->
+        <item name="android:windowBackground">@color/black</item>
+
+        <!-- Surface colors -->
+        <item name="colorSurface">@color/gray_dark</item>
+        <item name="colorOnSurface">@color/white</item>
+
+        <!-- Error color -->
+        <item name="colorError">@color/error</item>
+    </style>
+</resources>
