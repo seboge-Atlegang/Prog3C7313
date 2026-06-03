@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:gravity="center"
+    android:background="@color/white"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CashFlow"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginBottom="48dp"/>
+
+    <!-- Add Expense Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAddExpense"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="Add Expense"
+        android:textAllCaps="false"
+        app:cornerRadius="8dp"
+        android:backgroundTint="@color/primary_blue"
+        android:textColor="@color/white"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Categories Button with Outline -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCategoriesGoals"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="Categories &amp; Goals"
+        android:textAllCaps="false"
+        app:cornerRadius="8dp"
+        android:textColor="@color/primary_blue"
+        app:strokeColor="@color/primary_blue"
+        app:strokeWidth="2dp"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Reports Button with Outline -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnReports"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="Reports &amp; Dashboard"
+        android:textAllCaps="false"
+        app:cornerRadius="8dp"
+        android:textColor="@color/primary_blue"
+        app:strokeColor="@color/primary_blue"
+        app:strokeWidth="2dp"/>
+
+</LinearLayout>
